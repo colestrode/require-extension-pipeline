@@ -1,0 +1,32 @@
+{
+  "name": "require-extension-pipeline",
+  "version": "0.0.1",
+  "description": "Use multiple require.extensions callbacks per filetype.",
+  "main": "index.js",
+  "scripts": {
+    "test": "grunt test"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/colestrode/require-extension-pipeline.git"
+  },
+  "keywords": [
+    "node",
+    "require",
+    "extensions",
+    "pipeline"
+  ],
+  "author": "Cole Furfaro-Strode",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/colestrode/require-extension-pipeline/issues"
+  },
+  "homepage": "https://github.com/colestrode/require-extension-pipeline#readme",
+  "devDependencies": {
+    "grunt": "^0.4.5",
+    "grunt-contrib-jshint": "^0.11.3",
+    "grunt-jscs": "^2.3.0",
+    "matchdep": "^1.0.0",
+    "time-grunt": "^1.2.2"
+  }
+}
