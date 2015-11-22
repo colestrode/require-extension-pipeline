@@ -23,7 +23,16 @@ function addPipeline(extension) {
     },
 
     set: function(t) {
-      transforms.push(t);
+      var exists = false;
+      transforms.forEach(function(transform) {
+        if (transform === t) {
+          exists = true;
+        }
+      });
+
+      if (!exists) {
+        transforms.push(t);
+      }
     }
   });
 }
