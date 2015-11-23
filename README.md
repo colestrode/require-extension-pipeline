@@ -11,12 +11,13 @@ require('require-extension-pipeline`)();
 
 
 ## Configuring
-The require extension pipeline will automatically add pipelining for `.js`, `.json`, and `.node` extensions.
+The require extension pipeline will automatically add pipelining for `.js` files.
 If you want to add other types of file extensions, pass an array of extensions when initializing: 
 
 ```
 require('require-extension-pipeline`)(['es6`]);
 ```
+
 
 
 ## Notes
