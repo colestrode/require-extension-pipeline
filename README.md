@@ -6,7 +6,7 @@ Use multiple require.extensions callbacks per filetype. Like a boss.
 Include this library at the root of your project:
 
 ```
-require('require-extension-pipeline`)();
+require('require-extension-pipeline')();
 ```
 
 
@@ -15,7 +15,7 @@ The require extension pipeline will automatically add pipelining for `.js`, `.no
 If you want to add other types of file extensions, pass an array of extensions when initializing: 
 
 ```
-require('require-extension-pipeline`)(['es6`]);
+require('require-extension-pipeline')(['es6']);
 ```
 
 
