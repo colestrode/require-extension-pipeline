@@ -8,11 +8,11 @@ var fs = require('fs')
 
 
 module.exports = function init(extensions) {
+  var allExtensions = _.keys(require.extensions);
+
   // clear temp file cache
   rimraf.sync(tempDir);
-
-  var allExtensions = _.keys(require.extensions);
-  // otherwise cross your fingers
+  // and cross your fingers
   fs.mkdirSync(tempDir);
 
   if (Array.isArray(extensions) && extensions.length > 0) {
