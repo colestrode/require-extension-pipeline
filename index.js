@@ -1,7 +1,6 @@
 var fs = require('fs')
   , rimraf = require('rimraf')
   , crypto = require('crypto')
-  , uuid = require('uuid')
   , _ = require('lodash')
   , stripBom = require('strip-bom')
   , tempDir = __dirname + '/.tmp'
@@ -10,20 +9,18 @@ var fs = require('fs')
 
 module.exports = function init(extensions) {
   // clear temp file cache
-  rimraf(tempDir, function(err) {
-    var allExtensions = ['.js'];
-    if (!err) {
-      // otherwise cross your fingers
-      fs.mkdirSync(tempDir);
+  rimraf.sync(tempDir);
 
-      if (Array.isArray(extensions) && extensions.length > 0) {
-        allExtensions = _.uniq(allExtensions.concat(extensions));
-      }
+  var allExtensions = _.keys(require.extensions);
+  // otherwise cross your fingers
+  fs.mkdirSync(tempDir);
 
-      allExtensions.forEach(function(extension) {
-        addPipeline(extension);
-      });
-    }
+  if (Array.isArray(extensions) && extensions.length > 0) {
+    allExtensions = _.uniq(allExtensions.concat(extensions));
+  }
+
+  allExtensions.forEach(function(extension) {
+    addPipeline(extension);
   });
 };
 
@@ -32,7 +29,7 @@ function addPipeline(extension) {
     , propertyConfig = {};
 
   propertyConfig.get = function() {
-    return getter(transforms);
+    return getter(transforms, extension);
   };
 
   propertyConfig.set = setter(transforms);
@@ -40,7 +37,7 @@ function addPipeline(extension) {
   Object.defineProperty(require.extensions, extension, propertyConfig);
 }
 
-function getter(transforms) {
+function getter(transforms, extension) {
   return function(module, filename) {
     var generatedFilename = fileMap[filename]
       , filePath = filename;
@@ -63,6 +60,10 @@ function getter(transforms) {
 
     transforms.forEach(function(transform) {
       transform(module, filePath);
+
+      if (extension === '.json') {
+        fs.writeFileSync(filePath, JSON.stringify(module.exports));
+      }
     });
   };
 }
@@ -70,7 +71,8 @@ function getter(transforms) {
 function setter(transforms) {
   return function(t) {
     var exists = false;
-    transforms.forEach(function(transform) {
+
+    _.forEach(transforms, function(transform) {
       if (transform === t) {
         exists = true;
       }

@@ -31,7 +31,6 @@
   },
   "dependencies": {
     "lodash": "^3.10.1",
-    "strip-bom": "^2.0.0",
-    "uuid": "^2.0.1"
+    "strip-bom": "^2.0.0"
   }
 }
